@@ -5,7 +5,7 @@ Enhanced CSS Slider is a web component that wraps up all the JavaScript logic ne
 - Add Previous/Next arrows to a slider;
 - Add looping functionality;
 
-It ==does not add or alter any markup==, it merely adds behaviors to existing elements.
+It **does not add or alter any markup**, it merely adds behaviors to existing elements.
 
 ## How to use
 
