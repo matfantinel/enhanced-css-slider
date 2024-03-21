@@ -84,7 +84,7 @@ Similar to prev/next buttons, you can also pass an element with the `current` cl
 | --------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | centered        | false   | Use it if the active slider is center-aligned instead of aligned to the left.                                                                                 |
 | loop            | false   | Whether the slider should loop around. This creates clones of the first/last slides in order to give an illusion that the slides are looping.                 |
-| slides-to-clone | 2       | Only used in `loop` mode. This controls how many slides will be cloned. Increase this number in case the 2 slides aren't enough to give the looping illusion. |
+| slides-to-clone | 2       | Only used in `loop` mode. This controls how many slides will be cloned. Increase this number in case the 2 slides aren't enough to give the looping illusion. *Ideally this will be done automatically in the future.* |
 
 ## Slots
 
