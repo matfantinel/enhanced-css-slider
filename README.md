@@ -1,5 +1,8 @@
 # Enhanced CSS Slider
 
+> [!warning]
+> This project is in its early stages and can be very unstable. The goal is to improve it and standardize its API as it's used in more projects.
+
 Enhanced CSS Slider is a web component that wraps up all the JavaScript logic needed to:
 
 - Add Previous/Next arrows to a slider;
