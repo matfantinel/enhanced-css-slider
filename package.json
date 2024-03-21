@@ -1,0 +1,28 @@
+{
+  "name": "enhanced-css-slider",
+  "version": "0.0.1",
+  "description": "Enhanced CSS Slider is a web component that adds some functionality to your existing CSS slider.",
+  "main": "src/index.js",
+  "bin": "bin/enhanced-css-slider",
+  "author": "Matheus Fantinel <matt@fantinel.dev> (https://fantinel.dev)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "matfantinel/enhanced-css-slider",
+  "homepage": "https://github.com/matfantinel/enhanced-css-slider",
+  "license": "MIT",
+  "keywords": [
+    "slider",
+    "carousel",
+    "scroll snap"
+  ],
+  "files": [
+    "bin/",
+    "src/"
+  ],
+  "devDependencies": {    
+  },
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}
