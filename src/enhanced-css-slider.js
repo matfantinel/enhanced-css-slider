@@ -112,7 +112,6 @@ class EnhancedCssSlider extends HTMLElement {
       }
     });
 
-    console.log({activeSlide});
     if (includeDistance) {
       return { activeSlide, activeSlideDistance };
     }
