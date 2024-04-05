@@ -93,13 +93,21 @@ Similar to prev/next buttons, you can also pass an element with the `current` cl
 | list    | The scrollable element. Can be set with `data-slider-slot="list"` or by being a `ul` element.                      |
 | current | The current active index of the slider. Can be set with `data-slider-slot="current"` or with the `current` class.  |
 | prev    | The button that scrolls to the previous slide. Can be set with `data-slider-slot="prev"` or with the `prev` class. |
-| next    | The button that scrolls to the next slide. Can be set with `data-
+| next    | The button that scrolls to the next slide. Can be set with `data-slider-slot="next"` or with the `next` class.
 
 ## Events
 
 | Event        | Params              |
 | ------------ | ------------------- |
 | slideChanged | activeSlide (index) |
+
+## Functions
+
+| Function | Params | Description |
+| -------- | ------ | ----------- |
+| scrollNext | behavior (default: "smooth") | Goes to next slide. Will wrap around to the first slide if `loop` is enabled |
+| scrollPrev | behavior (default: "smooth") | Goes to previous slide. Wraps around to the last slide if `loop` is enabled |
+| scrollToIndex | behavior (default: "smooth") | Scrolls to a specific slide by index. Use behavior `instant` if you want to jump to it immediatelly instead of smoothly scrolling to it. |
 
 ## Dealing with JavaScript unavailability
 

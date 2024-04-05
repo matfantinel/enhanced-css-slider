@@ -55,6 +55,10 @@ class EnhancedCssSlider extends HTMLElement {
 
     // Try to get what the list of slides is. Look for data-slider-slot=list or ul
     this.list = this.content.querySelector('[data-slider-slot="list"]') ?? this.content.querySelector('ul');
+    if (!this.list) {
+      console.error('No list of slides found');
+      return;
+    }
     
     this.slides = this.list?.children;
     this.realSlides = [...this.slides];
@@ -119,7 +123,7 @@ class EnhancedCssSlider extends HTMLElement {
     return activeSlide;
   }
 
-  scrollToSlide(index, behavior = 'smooth') {
+  scrollToIndex(index, behavior = 'smooth') {
     index += this.indexOffset;
 
     const slide = this.slides[index];
@@ -137,6 +141,20 @@ class EnhancedCssSlider extends HTMLElement {
       left: positionToSlideTo,
       behavior,
     });
+  }
+
+  scrollNext(behavior = 'smooth') {
+    const activeSlide = this.getActiveSlide();
+    if (activeSlide < this.slides.length - 1) {
+      this.scrollToIndex(activeSlide + 1, behavior);
+    }
+  }
+
+  scrollPrev(behavior = 'smooth') {
+    const activeSlide = this.getActiveSlide();
+    if (activeSlide + this.indexOffset > 0) {
+      this.scrollToIndex(activeSlide - 1, behavior);
+    }
   }
 
   cloneSlides() {
@@ -169,7 +187,7 @@ class EnhancedCssSlider extends HTMLElement {
     });
 
     setTimeout(() => {
-      this.scrollToSlide(0, 'instant');
+      this.scrollToIndex(0, 'instant');
     }, 100);
   }
 
@@ -216,21 +234,11 @@ class EnhancedCssSlider extends HTMLElement {
 
   setupHandlers() {
     if (this.prev) {
-      this.prev.addEventListener('click', () => {
-        const activeSlide = this.getActiveSlide();
-        if (activeSlide + this.indexOffset > 0) {
-          this.scrollToSlide(activeSlide - 1);
-        }
-      });
+      this.prev.addEventListener('click', () => this.scrollPrev());
     }
 
     if (this.next) {
-      this.next.addEventListener('click', () => {
-        const activeSlide = this.getActiveSlide();
-        if (activeSlide < this.slides.length - 1) {
-          this.scrollToSlide(activeSlide + 1);
-        }
-      });
+      this.next.addEventListener('click', () => this.scrollNext());
     }
 
     // On window resize, run checkIfSliderIsNeeded
@@ -245,12 +253,12 @@ class EnhancedCssSlider extends HTMLElement {
       if (this.props.loop && activeSlide < 0) {
         if (activeSlideDistance < 10) {
           // If activeSlide is negative, it means we should loop to last real slide
-          this.scrollToSlide(this.realSlides.length - 1, 'instant');
+          this.scrollToIndex(this.realSlides.length - 1, 'instant');
         }
       } else if (this.props.loop && activeSlide > this.realSlides.length - 1) {
         if (activeSlideDistance < 10) {
           // If activeSlide is greater than the number of real slides, it means we should loop to the beginning
-          this.scrollToSlide(0, 'instant');
+          this.scrollToIndex(0, 'instant');
         }
       } else {        
         if (this.currentSlideIndicator) {
