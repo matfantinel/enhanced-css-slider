@@ -114,7 +114,7 @@ class EnhancedCssSlider extends HTMLElement {
         activeSlide = index - this.indexOffset;
         activeSlideDistance = distanceFromReference;
       }
-    });
+    }); 
 
     if (includeDistance) {
       return { activeSlide, activeSlideDistance };
@@ -275,12 +275,14 @@ class EnhancedCssSlider extends HTMLElement {
       }
 
       if (!this.props.loop) {
+        const hasReachedEnd = !this.props.centered && this.list.scrollLeft + this.list.offsetWidth >= this.list.scrollWidth;
+
         if (activeSlide === 0) {
           this.prev?.setAttribute('disabled', 'true');
         } else {
           this.prev?.removeAttribute('disabled');
         }
-        if (activeSlide === this.slides.length - 1) {
+        if (activeSlide === this.slides.length - 1 || hasReachedEnd) {
           this.next?.setAttribute('disabled', 'true');
         } else {
           this.next?.removeAttribute('disabled');
