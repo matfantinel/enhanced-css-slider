@@ -78,6 +78,29 @@ Similar to prev/next buttons, you can also pass an element with the `current` cl
 </enhanced-css-slider>
 ```
 
+### Dot indicators
+
+If you want to display dot indicators instead of a number, you can provide elements with the `dot` class or `data-slider-slot="dot"` attribute. With that, Enhanced CSS Slider will automatically toggle the `active` class as your slider scrolls.
+
+```html
+<enhanced-css-slider>
+  <ul class="scrollable-list">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
+
+  <div>
+    <span data-slider-slot="dot"></span>
+    <span data-slider-slot="dot"></span>
+    <span data-slider-slot="dot"></span>
+  </div>
+
+  <button data-slider-slot="prev">Prev</button>
+  <button data-slider-slot="next">Next</button>
+</enhanced-css-slider>
+```
+
 ## Props
 
 | Prop Name       | Default | Description                                                                                                                                                   |
@@ -92,6 +115,7 @@ Similar to prev/next buttons, you can also pass an element with the `current` cl
 | ------- | ------------------------------------------------------------------------------------------------------------------ |
 | list    | The scrollable element. Can be set with `data-slider-slot="list"` or by being a `ul` element.                      |
 | current | The current active index of the slider. Can be set with `data-slider-slot="current"` or with the `current` class.  |
+| dot     | Dots that will be automatically highlighted. Can be set with `data-slider-slot="dot"` or with the `dot` class.     |
 | prev    | The button that scrolls to the previous slide. Can be set with `data-slider-slot="prev"` or with the `prev` class. |
 | next    | The button that scrolls to the next slide. Can be set with `data-slider-slot="next"` or with the `next` class.
 

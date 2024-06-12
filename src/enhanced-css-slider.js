@@ -44,7 +44,7 @@ class EnhancedCssSlider extends HTMLElement {
 
     this.props.centered = this.content.hasAttribute('centered') && this.content.getAttribute('centered') !== 'false';
     this.props.loop = this.content.hasAttribute('loop') && this.content.getAttribute('loop') !== 'false';
-    this.props.slidesToClone = this.content.getAttribute('sliders-to-clone') || 2;
+    this.props.slidesToClone = this.content.getAttribute('slides-to-clone') || 2;
 
     // Get previous and next buttons if they exist
     this.prev = this.content.querySelector('[data-slider-slot="prev"]') ?? this.content.querySelector('.prev');
@@ -52,6 +52,10 @@ class EnhancedCssSlider extends HTMLElement {
 
     // Get current slide indicator if it exists
     this.currentSlideIndicator = this.content.querySelector('[data-slider-slot="current"]') ?? this.content.querySelector('.current');
+    this.dotIndicators = this.content.querySelectorAll('[data-slider-slot="dot"]');
+    if (!this.dotIndicators?.length) {
+      this.dotIndicators = this.content.querySelectorAll('.dot');
+    }
 
     // Try to get what the list of slides is. Look for data-slider-slot=list or ul
     this.list = this.content.querySelector('[data-slider-slot="list"]') ?? this.content.querySelector('ul');
@@ -263,6 +267,17 @@ class EnhancedCssSlider extends HTMLElement {
       } else {        
         if (this.currentSlideIndicator) {
           this.currentSlideIndicator.textContent = activeSlide + 1;
+        }
+
+        if (this.dotIndicators?.length) {
+          const dots = this.dotIndicators;
+          [...dots].forEach((dot, index) => {
+            if (index <= activeSlide) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
         }
         
         // Debounce the event
