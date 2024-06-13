@@ -15,11 +15,15 @@ class EnhancedCssSlider extends HTMLElement {
   static props = {
     loop: false,
     centered: false,
-    slidesToClone: 2
+    slidesToClone: 2,
+    autoplay: false,
+    autoplayDelay: 5000,
   };
 
   static events = {
-    slideChanged: 'slideChanged'
+    slideChanged: 'slideChanged',
+    autoplayStarted: 'autoplayStarted',
+    autoplayStopped: 'autoplayStopped',
   }
 
   static classes = {};
@@ -45,6 +49,8 @@ class EnhancedCssSlider extends HTMLElement {
     this.props.centered = this.content.hasAttribute('centered') && this.content.getAttribute('centered') !== 'false';
     this.props.loop = this.content.hasAttribute('loop') && this.content.getAttribute('loop') !== 'false';
     this.props.slidesToClone = this.content.getAttribute('slides-to-clone') || 2;
+    this.props.autoplay = this.content.hasAttribute('autoplay') && this.content.getAttribute('autoplay') !== 'false';
+    this.props.autoplayDelay = this.content.getAttribute('autoplay-delay') || 5000;
 
     // Get previous and next buttons if they exist
     this.prev = this.content.querySelector('[data-slider-slot="prev"]') ?? this.content.querySelector('.prev');
@@ -72,6 +78,7 @@ class EnhancedCssSlider extends HTMLElement {
     }
 
     this.indexOffset = 0;
+    this.autoplayInterval = null;
 
     this.setupHandlers();
 
@@ -141,6 +148,7 @@ class EnhancedCssSlider extends HTMLElement {
       positionToSlideTo = slide.offsetLeft - offsetOfFirstSlide + 10;
     }
 
+    this.isProgrammaticScroll = true;
     this.list.scrollTo({
       left: positionToSlideTo,
       behavior,
@@ -232,17 +240,48 @@ class EnhancedCssSlider extends HTMLElement {
     }
   }
 
+  startAutoplay() {
+    if (this.props.autoplay) {
+      this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.autoplayStarted));
+
+      this.autoplayInterval = setInterval(() => {
+        this.scrollNext();
+      }, this.props.autoplayDelay);
+    }
+  }
+  
+  pauseAutoplay() {
+    clearInterval(this.autoplayInterval);
+    if (this.props.autoplay) {
+      this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.autoplayStopped, { detail: { paused: true } }));
+    }
+  }
+
+  stopAutoplay() {
+    clearInterval(this.autoplayInterval);
+    if (this.props.autoplay) {
+      this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.autoplayStopped, { detail: { paused: false } }));
+      this.props.autoplay = false;
+    }
+  }
+
   //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
   // ✅ Setup Handlers
   //≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 
   setupHandlers() {
     if (this.prev) {
-      this.prev.addEventListener('click', () => this.scrollPrev());
+      this.prev.addEventListener('click', () => {
+        this.stopAutoplay();
+        this.scrollPrev();
+    });
     }
 
     if (this.next) {
-      this.next.addEventListener('click', () => this.scrollNext());
+      this.next.addEventListener('click', () => {
+        this.stopAutoplay();
+        this.scrollNext();
+    });
     }
 
     // On window resize, run checkIfSliderIsNeeded
@@ -285,6 +324,10 @@ class EnhancedCssSlider extends HTMLElement {
           clearTimeout(this.scrollTimeout);
         }
         this.scrollTimeout = setTimeout(() => {
+          if (!this.isProgrammaticScroll) {
+            this.stopAutoplay();
+          }
+          this.isProgrammaticScroll = false;
           this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.slideChanged, { detail: { activeSlide } }));          
         }, 200);
       }
@@ -303,6 +346,18 @@ class EnhancedCssSlider extends HTMLElement {
           this.next?.removeAttribute('disabled');
         }
       }
+    });
+
+
+    this.startAutoplay();
+    // If mouse enters the slider, pause autoplay
+    this.content.addEventListener('mouseenter', () => {
+      this.pauseAutoplay();
+    });
+
+    // If mouse leaves, resume autoplay
+    this.content.addEventListener('mouseleave', () => {
+      this.startAutoplay();
     });
   }
 }

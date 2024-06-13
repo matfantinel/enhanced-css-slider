@@ -1,6 +1,6 @@
 {
   "name": "enhanced-css-slider",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Enhanced CSS Slider is a web component that adds some functionality to your existing CSS slider.",
   "main": "src/index.js",
   "bin": "bin/enhanced-css-slider",

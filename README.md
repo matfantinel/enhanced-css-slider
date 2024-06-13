@@ -108,6 +108,8 @@ If you want to display dot indicators instead of a number, you can provide eleme
 | centered        | false   | Use it if the active slider is center-aligned instead of aligned to the left.                                                                                 |
 | loop            | false   | Whether the slider should loop around. This creates clones of the first/last slides in order to give an illusion that the slides are looping.                 |
 | slides-to-clone | 2       | Only used in `loop` mode. This controls how many slides will be cloned. Increase this number in case the 2 slides aren't enough to give the looping illusion. *Ideally this will be done automatically in the future.* |
+| autoplay | false       | If true, slides will cycle automatically within `autoplay-interval`. Pauses when hovered and stops completely if user manually scrolls. |
+| autoplay-interval | 5000       | The interval (in miliseconds) to wait when autoplaying slides. |
 
 ## Slots
 
@@ -121,9 +123,11 @@ If you want to display dot indicators instead of a number, you can provide eleme
 
 ## Events
 
-| Event        | Params              |
-| ------------ | ------------------- |
-| slideChanged | activeSlide (index) |
+| Event        | Params              | |
+| ------------ | ------------------- | - |
+| slideChanged | activeSlide (index) | |
+| autoplayStarted |  | |
+| autoplayStopped | paused (true/false) | `paused` is true if autoplay was disabled temporarily (mouse hover), false if stopped completely (user action) |
 
 ## Functions
 
