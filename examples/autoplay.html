@@ -51,6 +51,10 @@
     const slider = document.querySelector('enhanced-css-slider');
     const autoplayStatus = document.querySelector('#autoplay-status');
 
+    slider.addEventListener('slideStarted', (event) => {
+      console.log('Slide started', event.detail);
+    });
+
     slider.addEventListener('autoplayStarted', (event) => {
       autoplayStatus.textContent = 'Autoplay enabled';
       autoplayStatus.style.background = '#95caca';

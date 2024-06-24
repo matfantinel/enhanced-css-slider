@@ -149,8 +149,11 @@ class EnhancedCssSlider extends HTMLElement {
       positionToSlideTo = slide.offsetLeft - offsetOfFirstSlide + 10;
     }
 
-    const prevSlide = this.getActiveSlide();
-    this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.slideStarted, { detail: { prev: prevSlide, next: index - this.indexOffset } }));
+    let nextSlide = index - this.indexOffset;
+    if (nextSlide >= 0 && nextSlide < this.realSlides.length) { 
+      const prevSlide = this.getActiveSlide();
+      this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.slideStarted, { detail: { prevSlide, nextSlide } }));
+    }
 
     this.isProgrammaticScroll = true;
     this.list.scrollTo({
