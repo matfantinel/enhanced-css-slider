@@ -45,6 +45,10 @@
 
   <script>
     const slider = document.querySelector('enhanced-css-slider');
+    slider.addEventListener('slideStarted', (event) => {
+      console.log('Slide started', event.detail);
+    });
+
     slider.addEventListener('slideChanged', (event) => {
       console.log('Slide changed', event.detail);
     });

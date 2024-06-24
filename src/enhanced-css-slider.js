@@ -22,6 +22,7 @@ class EnhancedCssSlider extends HTMLElement {
 
   static events = {
     slideChanged: 'slideChanged',
+    slideStarted: 'slideStarted',
     autoplayStarted: 'autoplayStarted',
     autoplayStopped: 'autoplayStopped',
   }
@@ -147,6 +148,9 @@ class EnhancedCssSlider extends HTMLElement {
       const offsetOfFirstSlide = this.slides[0].offsetLeft;
       positionToSlideTo = slide.offsetLeft - offsetOfFirstSlide + 10;
     }
+
+    const prevSlide = this.getActiveSlide();
+    this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.slideStarted, { detail: { prev: prevSlide, next: index - this.indexOffset } }));
 
     this.isProgrammaticScroll = true;
     this.list.scrollTo({

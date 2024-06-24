@@ -126,6 +126,7 @@ If you want to display dot indicators instead of a number, you can provide eleme
 | Event        | Params              | |
 | ------------ | ------------------- | - |
 | slideChanged | activeSlide (index) | |
+| slideStarted | prev and next (index) | Fires right before the scroll is fired. Only works if scrolling is done programatically (via prev/next arrows or autoplay) |
 | autoplayStarted |  | |
 | autoplayStopped | paused (true/false) | `paused` is true if autoplay was disabled temporarily (mouse hover), false if stopped completely (user action) |
 
