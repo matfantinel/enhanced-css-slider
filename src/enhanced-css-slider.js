@@ -192,6 +192,17 @@ class EnhancedCssSlider extends HTMLElement {
       const lastSlide = this.realSlides[this.realSlides.length - 1 - i];
       const clone = lastSlide.cloneNode(true);
       clone.classList.add('fake');
+
+      // Make sure any heading elements are changed to divs
+      // As to not mess with the document outline
+      const headings = clone.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      headings.forEach(heading => {
+        const newElement = document.createElement('div');
+        newElement.innerHTML = heading.innerHTML;
+        newElement.className = heading.className;
+        heading.replaceWith(newElement);
+      });
+
       this.list.insertBefore(clone, this.list.firstChild);
     }
 
@@ -200,6 +211,17 @@ class EnhancedCssSlider extends HTMLElement {
       const firstSlide = this.realSlides[i];
       const clone = firstSlide.cloneNode(true);
       clone.classList.add('fake');
+
+      // Make sure any heading elements are changed to divs
+      // As to not mess with the document outline
+      const headings = clone.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      headings.forEach(heading => {
+        const newElement = document.createElement('div');
+        newElement.innerHTML = heading.innerHTML;
+        newElement.className = heading.className;
+        heading.replaceWith(newElement);
+      });
+      
       this.list.appendChild(clone);
     }
 

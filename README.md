@@ -174,3 +174,7 @@ If you want to display dot indicators instead of a number, you can provide eleme
 ## Handling cases where slider is not needed
 
 In situations where there is more than enough space to fit all children in the viewport without scrolling, Enhanced CSS Slider will automatically disable the prev/next arrows and add the `no-scroll` class to your list. You can then use CSS to apply any styling rules you'd like. **This behavior is not present if `centered` or `loop` are true.**
+
+## Important: On loop mode, duplicate slider headings are replaced with <divs> to avoid messing with document outline
+
+To avoid duplicated headings (h1, h2, h3, etc), they are replaced with `div`s as to not mess up the document outline. This might mess up your stylings if you apply styles directly to these elements and not to a class.
