@@ -110,6 +110,7 @@ If you want to display dot indicators instead of a number, you can provide eleme
 | slides-to-clone | 2       | Only used in `loop` mode. This controls how many slides will be cloned. Increase this number in case the 2 slides aren't enough to give the looping illusion. *Ideally this will be done automatically in the future.* |
 | autoplay | false       | If true, slides will cycle automatically within `autoplay-interval`. Pauses when hovered and stops completely if user manually scrolls. |
 | autoplay-interval | 5000       | The interval (in miliseconds) to wait when autoplaying slides. |
+| heading-classes | h1, h2, h3, h4, h5, h6       | Classes to add to cloned (fake) slides headings, to keep styling even if tag changes. |
 
 ## Slots
 
@@ -177,4 +178,4 @@ In situations where there is more than enough space to fit all children in the v
 
 ## Important: On loop mode, duplicate slider headings are replaced with <divs> to avoid messing with document outline
 
-To avoid duplicated headings (h1, h2, h3, etc), they are replaced with `div`s as to not mess up the document outline. This might mess up your stylings if you apply styles directly to these elements and not to a class.
+To avoid duplicated headings (h1, h2, h3, etc), they are replaced with `div`s as to not mess up the document outline. This might mess up your stylings if you apply styles directly to these elements and not to a class. It will also add the classes defined in the `heading-classes` prop to these elements.

@@ -18,6 +18,7 @@ class EnhancedCssSlider extends HTMLElement {
     slidesToClone: 2,
     autoplay: false,
     autoplayDelay: 5000,
+    headingClasses: 'h1, h2, h3, h4, h5, h6',
   };
 
   static events = {
@@ -52,6 +53,7 @@ class EnhancedCssSlider extends HTMLElement {
     this.props.slidesToClone = this.content.getAttribute('slides-to-clone') || 2;
     this.props.autoplay = this.content.hasAttribute('autoplay') && this.content.getAttribute('autoplay') !== 'false';
     this.props.autoplayDelay = this.content.getAttribute('autoplay-delay') || 5000;
+    this.props.headingClasses = this.content.getAttribute('heading-classes') || 'h1, h2, h3, h4, h5, h6';
 
     // Get previous and next buttons if they exist
     this.prev = this.content.querySelector('[data-slider-slot="prev"]') ?? this.content.querySelector('.prev');
@@ -199,7 +201,18 @@ class EnhancedCssSlider extends HTMLElement {
       headings.forEach(heading => {
         const newElement = document.createElement('div');
         newElement.innerHTML = heading.innerHTML;
-        newElement.className = heading.className;
+
+        // Apply classes from props to the heading element
+        let classes = heading.className;
+        if (this.props.headingClasses) {
+          const headingClasses = this.props.headingClasses.split(',').map(c => c.trim());
+          const headingLevel = parseInt(heading.tagName[1], 10) - 1;
+          if (headingClasses[headingLevel]) {
+            classes += ' ' + headingClasses[headingLevel];
+          }
+        }
+
+        newElement.className = classes;
         heading.replaceWith(newElement);
       });
 
@@ -218,7 +231,18 @@ class EnhancedCssSlider extends HTMLElement {
       headings.forEach(heading => {
         const newElement = document.createElement('div');
         newElement.innerHTML = heading.innerHTML;
-        newElement.className = heading.className;
+        
+        // Apply classes from props to the heading element
+        let classes = heading.className;
+        if (this.props.headingClasses) {
+          const headingClasses = this.props.headingClasses.split(',').map(c => c.trim());
+          const headingLevel = parseInt(heading.tagName[1], 10) - 1;
+          if (headingClasses[headingLevel]) {
+            classes += ' ' + headingClasses[headingLevel];
+          }
+        }
+
+        newElement.className = classes;
         heading.replaceWith(newElement);
       });
       
@@ -280,7 +304,8 @@ class EnhancedCssSlider extends HTMLElement {
   startAutoplay() {
     if (this.props.autoplay) {
       this.dispatchEvent(new CustomEvent(EnhancedCssSlider.events.autoplayStarted));
-
+      
+      clearInterval(this.autoplayInterval);
       this.autoplayInterval = setInterval(() => {
         this.scrollNext();
       }, this.props.autoplayDelay);
