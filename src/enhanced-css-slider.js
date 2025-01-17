@@ -50,9 +50,9 @@ class EnhancedCssSlider extends HTMLElement {
 
     this.props.centered = this.content.hasAttribute('centered') && this.content.getAttribute('centered') !== 'false';
     this.props.loop = this.content.hasAttribute('loop') && this.content.getAttribute('loop') !== 'false';
-    this.props.slidesToClone = this.content.getAttribute('slides-to-clone') || 2;
+    this.props.slidesToClone = parseInt(this.content.getAttribute('slides-to-clone')) || 2;
     this.props.autoplay = this.content.hasAttribute('autoplay') && this.content.getAttribute('autoplay') !== 'false';
-    this.props.autoplayDelay = this.content.getAttribute('autoplay-delay') || 5000;
+    this.props.autoplayDelay = parseInt(this.content.getAttribute('autoplay-delay')) || 5000;
     this.props.headingClasses = this.content.getAttribute('heading-classes') || 'h1, h2, h3, h4, h5, h6';
 
     // Get previous and next buttons if they exist
