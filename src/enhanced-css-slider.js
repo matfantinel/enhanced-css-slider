@@ -17,7 +17,7 @@ class EnhancedCssSlider extends HTMLElement {
     centered: false,
     slidesToClone: 2,
     autoplay: false,
-    autoplayDelay: 5000,
+    autoplayInterval: 5000,
     headingClasses: 'h1, h2, h3, h4, h5, h6',
   };
 
@@ -52,7 +52,7 @@ class EnhancedCssSlider extends HTMLElement {
     this.props.loop = this.content.hasAttribute('loop') && this.content.getAttribute('loop') !== 'false';
     this.props.slidesToClone = parseInt(this.content.getAttribute('slides-to-clone')) || 2;
     this.props.autoplay = this.content.hasAttribute('autoplay') && this.content.getAttribute('autoplay') !== 'false';
-    this.props.autoplayDelay = parseInt(this.content.getAttribute('autoplay-delay')) || 5000;
+    this.props.autoplayInterval = parseInt(this.content.getAttribute('autoplay-interval')) || 5000;
     this.props.headingClasses = this.content.getAttribute('heading-classes') || 'h1, h2, h3, h4, h5, h6';
 
     // Get previous and next buttons if they exist
@@ -308,7 +308,7 @@ class EnhancedCssSlider extends HTMLElement {
       clearInterval(this.autoplayInterval);
       this.autoplayInterval = setInterval(() => {
         this.scrollNext();
-      }, this.props.autoplayDelay);
+      }, this.props.autoplayInterval);
     }
   }
   
