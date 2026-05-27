@@ -1,7 +1,7 @@
 # Enhanced CSS Slider
 
 > [!warning]
-> This project is in its early stages and can be very unstable. The goal is to improve it and standardize its API as it's used in more projects.
+> This project is no longer maintained. I recommend using [Carousel Pilot](https://github.com/matfantinel/carousel-pilot) instead.
 
 Enhanced CSS Slider is a web component that wraps up all the JavaScript logic needed to:
 
